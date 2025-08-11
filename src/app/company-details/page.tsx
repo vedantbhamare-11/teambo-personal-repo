@@ -2,26 +2,28 @@
 
 import React, { useState } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
+import { CompanyAddressStep } from "@/components/company-details/ CompanyAddressStep";
+import { BasicCompanyInfoStep } from "@/components/company-details/BasicCompanyInfoStep";
+import { DocumentsAndPlaceStep } from "@/components/company-details/DocumentsAndPlaceStep";
+
 
 export default function CompanyDetailsPage() {
   const [step, setStep] = useState(1);
 
-  // Step 1 fields
+  // Step 1 state
   const [companyName, setCompanyName] = useState("");
   const [companyStrength, setCompanyStrength] = useState("");
   const [foundedYear, setFoundedYear] = useState("");
 
-  // Step 2 fields
+  // Step 2 state
   const [addressLine1, setAddressLine1] = useState("");
   const [addressLine2, setAddressLine2] = useState("");
   const [city, setCity] = useState("");
   const [pincode, setPincode] = useState("");
   const [state, setState] = useState("");
 
-  // Step 3 fields
+  // Step 3 state
   const [documents, setDocuments] = useState<File[]>([]);
 
   const handleDocumentsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,156 +46,46 @@ export default function CompanyDetailsPage() {
       nextStep();
       return;
     }
-    // Final submission logic goes here
+    // Final submission logic here
     alert("Submitted company details!");
   };
 
-  // Render inputs based on current step
   const renderStep = () => {
     switch (step) {
       case 1:
         return (
-          <>
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="companyName">Company Name *</Label>
-              <Input
-                id="companyName"
-                type="text"
-                required
-                placeholder="Your company name"
-                value={companyName}
-                onChange={(e) => setCompanyName(e.target.value)}
-              />
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="companyStrength">Company Strength *</Label>
-              <Input
-                id="companyStrength"
-                type="number"
-                min={1}
-                required
-                placeholder="Number of employees"
-                value={companyStrength}
-                onChange={(e) => setCompanyStrength(e.target.value)}
-              />
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="foundedYear">Years Founded *</Label>
-              <Input
-                id="foundedYear"
-                type="number"
-                min={1800}
-                max={new Date().getFullYear()}
-                required
-                placeholder="Year founded"
-                value={foundedYear}
-                onChange={(e) => setFoundedYear(e.target.value)}
-              />
-            </div>
-          </>
+          <BasicCompanyInfoStep
+            companyName={companyName}
+            setCompanyName={setCompanyName}
+            companyStrength={companyStrength}
+            setCompanyStrength={setCompanyStrength}
+            foundedYear={foundedYear}
+            setFoundedYear={setFoundedYear}
+          />
         );
-
       case 2:
         return (
-          <fieldset className="border border-gray-300 rounded p-4 flex flex-col gap-4">
-            <legend className="text-lg font-semibold">Company Address *</legend>
-
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="addressLine1">Address Line 1 *</Label>
-              <Input
-                id="addressLine1"
-                type="text"
-                required
-                placeholder="Street address, P.O. box, etc."
-                value={addressLine1}
-                onChange={(e) => setAddressLine1(e.target.value)}
-              />
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="addressLine2">Address Line 2</Label>
-              <Input
-                id="addressLine2"
-                type="text"
-                placeholder="Apartment, suite, unit, building, floor, etc."
-                value={addressLine2}
-                onChange={(e) => setAddressLine2(e.target.value)}
-              />
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="city">City *</Label>
-              <Input
-                id="city"
-                type="text"
-                required
-                placeholder="City"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-              />
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="pincode">Pincode *</Label>
-              <Input
-                id="pincode"
-                type="text"
-                required
-                placeholder="Postal code"
-                value={pincode}
-                onChange={(e) => setPincode(e.target.value)}
-              />
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="state">State *</Label>
-              <Input
-                id="state"
-                type="text"
-                required
-                placeholder="State"
-                value={state}
-                onChange={(e) => setState(e.target.value)}
-              />
-            </div>
-          </fieldset>
+          <CompanyAddressStep
+            addressLine1={addressLine1}
+            setAddressLine1={setAddressLine1}
+            addressLine2={addressLine2}
+            setAddressLine2={setAddressLine2}
+            city={city}
+            setCity={setCity}
+            pincode={pincode}
+            setPincode={setPincode}
+            state={state}
+            setState={setState}
+          />
         );
-
       case 3:
         return (
-          <>
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="companyDocuments">
-                Company Documents (Upload one or more files)
-              </Label>
-              <input
-                id="companyDocuments"
-                type="file"
-                multiple
-                onChange={handleDocumentsChange}
-                className="mt-2"
-              />
-              {documents.length > 0 && (
-                <ul className="mt-2 list-disc list-inside text-sm text-muted-foreground">
-                  {documents.map((file, idx) => (
-                    <li key={idx}>{file.name}</li>
-                  ))}
-                </ul>
-              )}
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <Label>Company Place (Map) *</Label>
-              {/* Map UI placeholder - replace with real map integration later */}
-              <div className="border rounded h-48 bg-gray-100 flex items-center justify-center text-gray-400">
-                Map UI placeholder here
-              </div>
-            </div>
-          </>
+          <DocumentsAndPlaceStep
+            documents={documents}
+            onDocumentsChange={setDocuments}
+            handleDocumentsChange={handleDocumentsChange}
+          />
         );
-
       default:
         return null;
     }
