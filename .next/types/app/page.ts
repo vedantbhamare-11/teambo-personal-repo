@@ -1,4 +1,4 @@
-// File: /Users/vedantbhamare/Desktop/TMBC/teambo/src/app/page.tsx
+// File: /Users/vedantbhamare/Desktop/TMBC/teambo-personal repo/src/app/page.tsx
 import * as entry from '../../../src/app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
