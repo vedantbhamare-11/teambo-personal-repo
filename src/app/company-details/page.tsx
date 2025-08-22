@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CompanyAddressStep } from "@/components/company-details/ CompanyAddressStep";
+import { CompanyAddressStep } from "@/components/company-details/CompanyAddressStep";
 import { BasicCompanyInfoStep } from "@/components/company-details/BasicCompanyInfoStep";
 import { DocumentsAndPlaceStep } from "@/components/company-details/DocumentsAndPlaceStep";
 

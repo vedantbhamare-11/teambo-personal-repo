@@ -15,7 +15,7 @@ export function DocumentsAndPlaceStep({
   const [locality, setLocality] = useState("");
 
   // Replace YOUR_GOOGLE_MAPS_API_KEY with your actual API key
-  const apiKey = "AIzaSyD-8gIPVMPnYFSgizFSxMHCyWzbpuhk4xE";
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
 
   // Construct the Google Maps embed URL based on locality input
   const mapSrc = locality
